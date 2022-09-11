@@ -1,0 +1,14 @@
+site_name: OverrunGL Book
+site_url: https://over-run.github.io/overrungl-book/
+nav:
+  - Introduction: index.md
+  - Preparing: 1-preparing.md
+  - The Game Loop: 2-game-loop.md
+theme:
+  name: readthedocs
+  locale: en_US
+  hljs_languages:
+    - groovy
+markdown_extensions:
+  - toc:
+      permalink: true
