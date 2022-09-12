@@ -9,6 +9,7 @@ theme:
   locale: en_US
   hljs_languages:
     - groovy
+    - glsl
 markdown_extensions:
   - toc:
       permalink: true
