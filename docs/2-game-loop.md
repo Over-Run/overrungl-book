@@ -13,5 +13,21 @@ while (running) {
 }
 ```
 
-But it is not all. We must set the limit for the running time. If it runs too fast or slow,
-we can't fully interact with the engine.
+This is just a simple example. We must use a **Timer** to calculate the interval (called _delta_) of the last and current
+running time.
+
+We can use a simple timer. It computes the delta, so we can use it for the scaling factor.
+
+```c
+double lastTime, currentTime, delta;
+while (running) {
+    lastTime = currentTime;
+    currentTime = getCurrentTime();
+    delta = currentTime - lastTime;
+    update();
+    render();
+    post_processing();
+}
+```
+
+

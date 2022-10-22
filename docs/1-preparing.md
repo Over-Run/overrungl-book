@@ -2,17 +2,39 @@
 
 Before staring, we need to prepare our project. We will use Java 19 for our project.
 
-Add the dependency to your build script. In the future, we can use the customizer.
+Add the dependencies to your build script. In the future, we can use the customizer to generate the dependencies.
+
+Also, remember to enable the preview features.
 
 ```groovy
 // Groovy
+project.ext.overrunglVer = "0.1.0"
+project.ext.overrunglNatives = "natives-windows"
 dependencies {
-    implementation "io.github.over-run:overrungl:0.1.0"
-    implementation "io.github.over-run:overrungl-glfw:0.1.0"
-    implementation "io.github.over-run:overrungl-opengl:0.1.0"
-    implementation "io.github.over-run:overrungl-stb:0.1.0"
-    implementation "io.github.over-run:overrungl-glfw::natives-windows"
-    implementation "io.github.over-run:overrungl-stb::natives-windows"
+    implementation platform("io.github.over-run:overrungl-bom:$overrunglVer")
+    implementation "io.github.over-run:overrungl"
+    implementation "io.github.over-run:overrungl-glfw"
+    implementation "io.github.over-run:overrungl-opengl"
+    implementation "io.github.over-run:overrungl-stb"
+    runtimeOnly "io.github.over-run:overrungl-glfw::$overrungNatives"
+    runtimeOnly "io.github.over-run:overrungl-stb::$overrungNatives"
+}
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += "--enable-preview"
+}
+// Kotlin DSL Script
+val overrunglVer = "0.1.0"
+dependencies {
+    implementation(platform("io.github.over-run:overrungl-bom:$overrunglVer"))
+    implementation("io.github.over-run:overrungl")
+    implementation("io.github.over-run:overrungl-glfw")
+    implementation("io.github.over-run:overrungl-opengl")
+    implementation("io.github.over-run:overrungl-stb")
+    runtimeOnly("io.github.over-run", "overrungl-glfw", classifier = overrungNatives)
+    runtimeOnly("io.github.over-run", "overrungl-stb", classifier = overrungNatives)
+}
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add("--enable-preview")
 }
 ```
 
